@@ -6,7 +6,6 @@ on:
      - main
 
 env:
-  OS: ubuntu-latest
   FETCH_DEPTH: 0
   JAVA_VERSION: 8
   JAVA_DISTRIBUTION: 'adopt'
@@ -32,7 +31,7 @@ jobs:
   ##### TESTS #####
 
   test-core:
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -46,7 +45,7 @@ jobs:
         run: cd binance4j-core && mvn test
 
   test-market:
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -62,7 +61,7 @@ jobs:
         run: cd binance4j-market && mvn test
 
   test-nft:
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -78,7 +77,7 @@ jobs:
         run: cd binance4j-nft && mvn test
 
   test-spot:
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -94,7 +93,7 @@ jobs:
         run: cd binance4j-spot && mvn test
 
   test-vision:
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -110,7 +109,7 @@ jobs:
         run: cd binance4j-vision && mvn test
 
   test-wallet:
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -126,7 +125,7 @@ jobs:
         run: cd binance4j-wallet && mvn test
 
   test-websocket:
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -142,7 +141,7 @@ jobs:
         run: cd binance4j-websocket && mvn test
 
   test-strategy:
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -165,7 +164,7 @@ jobs:
 
   deploy-core:
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -186,7 +185,7 @@ jobs:
 
   deploy-market:
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -207,7 +206,7 @@ jobs:
 
   deploy-nft:
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -228,7 +227,7 @@ jobs:
 
   deploy-spot:
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -249,7 +248,7 @@ jobs:
 
   deploy-vision:
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -270,7 +269,7 @@ jobs:
 
   deploy-wallet:
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -291,7 +290,7 @@ jobs:
 
   deploy-websocket:
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -312,7 +311,7 @@ jobs:
 
   deploy-strategy:
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -335,7 +334,7 @@ jobs:
 
   deploy-javadocs:
       needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-vision,deploy-wallet,deploy-websocket]
-      runs-on: ${{ env.OS }}
+      runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
           with:
