@@ -54,7 +54,7 @@ jobs:
         with:
           servers: ${{ env.SERVERS }}
       - name: Install binance4j-core
-        run: cd binance4j-core && mvn install
+        run: cd binance4j-core && mvn install -DskipTests=true 
       - name: Test
         run: cd binance4j-market && mvn test
       - name: Deploy
@@ -79,7 +79,7 @@ jobs:
         with:
           servers: ${{ env.SERVERS }}
       - name: Install binance4j-core
-        run: cd binance4j-core && mvn install
+        run: cd binance4j-core && mvn install -DskipTests=true
       - name: Test
         run: cd binance4j-nft && mvn test
       - name: Deploy
@@ -104,7 +104,7 @@ jobs:
         with:
           servers: ${{ env.SERVERS }}
       - name: Install binance4j-core
-        run: cd binance4j-core && mvn install
+        run: cd binance4j-core && mvn install -DskipTests=true
       - name: Test
         run: cd binance4j-spot && mvn test
       - name: Deploy
@@ -129,7 +129,7 @@ jobs:
         with:
           servers: ${{ env.SERVERS }}
       - name: Install binance4j-core
-        run: cd binance4j-core && mvn install
+        run: cd binance4j-core && mvn install -DskipTests=true
       - name: Test
         run: cd binance4j-vision && mvn test
       - name: Deploy
@@ -154,7 +154,7 @@ jobs:
         with:
           servers: ${{ env.SERVERS }}
       - name: Install binance4j-core
-        run: cd binance4j-core && mvn install
+        run: cd binance4j-core && mvn install -DskipTests=true
       - name: Test
         run: cd binance4j-wallet && mvn test
       - name: Deploy
@@ -179,7 +179,7 @@ jobs:
         with:
           servers: ${{ env.SERVERS }}
       - name: Install binance4j-core
-        run: cd binance4j-core && mvn install
+        run: cd binance4j-core && mvn install -DskipTests=true
       - name: Test
         run: cd binance4j-websocket && mvn test
       - name: Deploy
@@ -204,11 +204,11 @@ jobs:
         with:
           servers: ${{ env.SERVERS }}
       - name: Install binance4j-core
-        run: cd binance4j-core && mvn install
+        run: cd binance4j-core && mvn install -DskipTests=true
       - name: Install binance4j-websocket
-        run: cd binance4j-websocket && mvn install
+        run: cd binance4j-websocket && mvn install -DskipTests=true
       - name: Install binance4j-vision
-        run: cd binance4j-vision && mvn install
+        run: cd binance4j-vision && mvn install -DskipTests=true
       - name: Test
         run: cd binance4j-strategy && mvn test
       - name: Deploy
@@ -282,7 +282,7 @@ jobs:
             clean: true
             folder: binance4j-websocket/target/apidocs
             target-folder: binance4j-strategy
-            
+
         - name: Deploy binance4j-strategy javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
