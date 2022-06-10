@@ -223,9 +223,8 @@ jobs:
 
   # Javadoc
 
-  # We wait for the repo deployment
-  deploy-binance4j-core-javadoc:
-      needs: [deploy-core]
+  deploy-javadocs:
+      needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-vision,deploy-wallet,deploy-websocket]
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
@@ -245,22 +244,6 @@ jobs:
             clean: true
             folder: binance4j-core/target/apidocs
             target-folder: binance4j-core
-
-  # We wait for the repo deployment
-  deploy-binance4j-market-javadoc:
-      needs: [deploy-market]
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-        - name: Java Setup
-          uses: actions/setup-java@v2
-          with:
-            java-version: 8
-            distribution: 'adopt'
-        - name: Install binance4j-core
-          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-market
           run: cd binance4j-market && mvn install -DskipTests=true
         - name: Deploy binance4j-market
@@ -270,22 +253,6 @@ jobs:
             clean: true
             folder: binance4j-market/target/apidocs
             target-folder: binance4j-market
-
-  # We wait for the repo deployment and the previous javadoc deployment
-  deploy-binance4j-nft-javadoc:
-      needs: [deploy-nft,deploy-binance4j-market-javadoc]
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-        - name: Java Setup
-          uses: actions/setup-java@v2
-          with:
-            java-version: 8
-            distribution: 'adopt'
-        - name: Install binance4j-core
-          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-nft
           run: cd binance4j-nft && mvn install -DskipTests=true
         - name: Deploy binance4j-nft javadoc
@@ -295,22 +262,6 @@ jobs:
             clean: true
             folder: binance4j-nft/target/apidocs
             target-folder: binance4j-nft
-
-  # We wait for the repo deployment and the previous javadoc deployment
-  deploy-binance4j-spot-javadoc:
-      needs: [deploy-spot,deploy-binance4j-nft-javadoc]
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-        - name: Java Setup
-          uses: actions/setup-java@v2
-          with:
-            java-version: 8
-            distribution: 'adopt'
-        - name: Install binance4j-core
-          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-spot
           run: cd binance4j-spot && mvn install -DskipTests=true
         - name: Deploy binance4j-spot javadoc
@@ -320,22 +271,6 @@ jobs:
             clean: true
             folder: binance4j-spot/target/apidocs
             target-folder: binance4j-spot
-
-  # We wait for the repo deployment and the previous javadoc deployment
-  deploy-binance4j-vision-javadoc:
-      needs: [deploy-vision,deploy-binance4j-spot-javadoc]
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-        - name: Java Setup
-          uses: actions/setup-java@v2
-          with:
-            java-version: 8
-            distribution: 'adopt'
-        - name: Install binance4j-core
-          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-vision
           run: cd binance4j-vision && mvn install -DskipTests=true
         - name: Deploy binance4j-vision javadoc
@@ -345,22 +280,6 @@ jobs:
             clean: true
             folder: binance4j-vision/target/apidocs
             target-folder: binance4j-vision
-
-  # We wait for the repo deployment and the previous javadoc deployment
-  deploy-binance4j-wallet-javadoc:
-      needs: [deploy-wallet,deploy-binance4j-vision-javadoc]
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-        - name: Java Setup
-          uses: actions/setup-java@v2
-          with:
-            java-version: 8
-            distribution: 'adopt'
-        - name: Install binance4j-core
-          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-wallet
           run: cd binance4j-wallet && mvn install -DskipTests=true
         - name: Deploy binance4j-wallet javadoc
@@ -370,23 +289,6 @@ jobs:
             clean: true
             folder: binance4j-wallet/target/apidocs
             target-folder: binance4j-wallet
-
-
-  # We wait for the repo deployment and the previous javadoc deployment
-  deploy-binance4j-websocket-javadoc:
-      needs: [deploy-websocket,deploy-binance4j-wallet-javadoc]
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-          with:
-            fetch-depth: 0
-        - name: Java Setup
-          uses: actions/setup-java@v2
-          with:
-            java-version: 8
-            distribution: 'adopt'
-        - name: Install binance4j-core
-          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-websocket
           run: cd binance4j-websocket && mvn install -DskipTests=true
         - name: Deploy binance4j-websocket javadoc

@@ -1,9 +1,15 @@
 name: deploy
+
 on:
   push:
-    branches:
-      - main
+    branches: 
+     - main
+
 env:
+  OS: ubuntu-latest
+  FETCH_DEPTH: 0
+  JAVA_VERSION: 8
+  JAVA_DISTRIBUTION: 'adopt'
   BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
   BINANCE_API_SECRET: ${{ secrets.BINANCE_API_SECRET }}
   GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -12,231 +18,362 @@ env:
   OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   SERVERS: '[{  "id": "ossrh",  "username": "${{ secrets.OSSRH_USERNAME }}",   "password": "${{ secrets.OSSRH_PASSWORD }}"}]'
+  CORE_INSTALLATION: cd binance4j-core && mvn install -DskipTests=true 
+  MARKET_INSTALLATION: cd binance4j-market && mvn install -DskipTests=true 
+  NFT_INSTALLATION: cd binance4j-nft && mvn install -DskipTests=true 
+  SPOT_INSTALLATION: cd binance4j-spot && mvn install -DskipTests=true 
+  STRATEGY_INSTALLATION: cd binance4j-strategy && mvn install -DskipTests=true 
+  VISION_INSTALLATION: cd binance4j-vision && mvn install -DskipTests=true 
+  WALLET_INSTALLATION: cd binance4j-wallet && mvn install -DskipTests=true 
+  WEBSOCKET_INSTALLATION: cd binance4j-websocket && mvn install -DskipTests=true 
+
 jobs:
-  deploy-core:
-    runs-on: ubuntu-latest
+  
+  ##### TESTS #####
+
+  test-core:
+    runs-on: ${{OS}}
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{FETCH_DEPTH}}
       - name: Java Setup
         uses: actions/setup-java@v2
         with:
-          java-version: 8
-          distribution: 'adopt'
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
+      - name: Test
+        run: cd binance4j-core && mvn test
+
+  test-market:
+    runs-on: ${{OS}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{FETCH_DEPTH}}
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
+      - name: Install binance4j-core
+        run: ${{CORE_INSTALLATION}}
+      - name: Test
+        run: cd binance4j-market && mvn test
+
+  test-nft:
+    runs-on: ${{OS}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{FETCH_DEPTH}}
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
+      - name: Install binance4j-core
+        run: ${{CORE_INSTALLATION}}
+      - name: Test
+        run: cd binance4j-nft && mvn test
+
+  test-spot:
+    runs-on: ${{OS}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{FETCH_DEPTH}}
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
+      - name: Install binance4j-core
+        run: ${{CORE_INSTALLATION}}
+      - name: Test
+        run: cd binance4j-spot && mvn test
+
+  test-vision:
+    runs-on: ${{OS}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{FETCH_DEPTH}}
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
+      - name: Install binance4j-core
+        run: ${{CORE_INSTALLATION}}
+      - name: Test
+        run: cd binance4j-vision && mvn test
+
+  test-wallet:
+    runs-on: ${{OS}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{FETCH_DEPTH}}
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
+      - name: Install binance4j-core
+        run: ${{CORE_INSTALLATION}}
+      - name: Test
+        run: cd binance4j-wallet && mvn test
+
+  test-websocket:
+    runs-on: ${{OS}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{FETCH_DEPTH}}
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
+      - name: Install binance4j-core
+        run: ${{CORE_INSTALLATION}}
+      - name: Test
+        run: cd binance4j-websocket && mvn test
+
+  test-strategy:
+    runs-on: ${{OS}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{FETCH_DEPTH}}
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
+      - name: Install binance4j-core
+        run: ${{CORE_INSTALLATION}}
+      - name: Install binance4j-websocket
+        run: ${{WEBSOCKET_INSTALLATION}}
+      - name: Install binance4j-vision
+        run: ${{VISION_INSTALLATION}}
+      - name: Test
+        run: cd binance4j-strategy && mvn test
+  
+  ##### DEPLOYMENTS #####
+
+  deploy-core:
+    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+    runs-on: ${{OS}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{FETCH_DEPTH}}
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
-      - name: Test
-        run: cd binance4j-core && mvn test
       - name: Deploy
         run: cd binance4j-core && mvn -DskipTests=true deploy
 
   deploy-market:
-    needs: deploy-core
-    runs-on: ubuntu-latest
+    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+    runs-on: ${{OS}}
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{FETCH_DEPTH}}
       - name: Java Setup
         uses: actions/setup-java@v2
         with:
-          java-version: 8
-          distribution: 'adopt'
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
-      - name: Install binance4j-core
-        run: cd binance4j-core && mvn install -DskipTests=true 
-      - name: Test
-        run: cd binance4j-market && mvn test
       - name: Deploy
         run: cd binance4j-market && mvn -DskipTests=true deploy
 
   deploy-nft:
-    needs: deploy-core
-    runs-on: ubuntu-latest
+    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+    runs-on: ${{OS}}
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{FETCH_DEPTH}}
       - name: Java Setup
         uses: actions/setup-java@v2
         with:
-          java-version: 8
-          distribution: 'adopt'
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
-      - name: Install binance4j-core
-        run: cd binance4j-core && mvn install -DskipTests=true
-      - name: Test
-        run: cd binance4j-nft && mvn test
       - name: Deploy
         run: cd binance4j-nft && mvn -DskipTests=true deploy
 
   deploy-spot:
-    needs: deploy-core
-    runs-on: ubuntu-latest
+    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+    runs-on: ${{OS}}
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{FETCH_DEPTH}}
       - name: Java Setup
         uses: actions/setup-java@v2
         with:
-          java-version: 8
-          distribution: 'adopt'
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
-      - name: Install binance4j-core
-        run: cd binance4j-core && mvn install -DskipTests=true
-      - name: Test
-        run: cd binance4j-spot && mvn test
       - name: Deploy
         run: cd binance4j-spot && mvn -DskipTests=true deploy
 
   deploy-vision:
-    needs: deploy-core
-    runs-on: ubuntu-latest
+    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+    runs-on: ${{OS}}
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{FETCH_DEPTH}}
       - name: Java Setup
         uses: actions/setup-java@v2
         with:
-          java-version: 8
-          distribution: 'adopt'
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
-      - name: Install binance4j-core
-        run: cd binance4j-core && mvn install -DskipTests=true
-      - name: Test
-        run: cd binance4j-vision && mvn test
       - name: Deploy
         run: cd binance4j-vision && mvn -DskipTests=true deploy
 
   deploy-wallet:
-    needs: deploy-core
-    runs-on: ubuntu-latest
+    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+    runs-on: ${{OS}}
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{FETCH_DEPTH}}
       - name: Java Setup
         uses: actions/setup-java@v2
         with:
-          java-version: 8
-          distribution: 'adopt'
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
-      - name: Install binance4j-core
-        run: cd binance4j-core && mvn install -DskipTests=true
-      - name: Test
-        run: cd binance4j-wallet && mvn test
       - name: Deploy
         run: cd binance4j-wallet && mvn -DskipTests=true deploy
 
   deploy-websocket:
-    needs: deploy-core
-    runs-on: ubuntu-latest
+    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+    runs-on: ${{OS}}
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{FETCH_DEPTH}}
       - name: Java Setup
         uses: actions/setup-java@v2
         with:
-          java-version: 8
-          distribution: 'adopt'
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
-      - name: Install binance4j-core
-        run: cd binance4j-core && mvn install -DskipTests=true
-      - name: Test
-        run: cd binance4j-websocket && mvn test
       - name: Deploy
         run: cd binance4j-websocket && mvn -DskipTests=true deploy
 
   deploy-strategy:
-    needs: [deploy-core, deploy-websocket, deploy-vision]
-    runs-on: ubuntu-latest
+    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+    runs-on: ${{OS}}
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: ${{FETCH_DEPTH}}
       - name: Java Setup
         uses: actions/setup-java@v2
         with:
-          java-version: 8
-          distribution: 'adopt'
+          java-version: ${{JAVA_VERSION}}
+          distribution: ${{JAVA_DISTRIBUTION}}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
-      - name: Install binance4j-core
-        run: cd binance4j-core && mvn install -DskipTests=true
-      - name: Install binance4j-websocket
-        run: cd binance4j-websocket && mvn install -DskipTests=true
-      - name: Install binance4j-vision
-        run: cd binance4j-vision && mvn install -DskipTests=true
-      - name: Test
-        run: cd binance4j-strategy && mvn test
       - name: Deploy
         run: cd binance4j-strategy && mvn -DskipTests=true deploy
-      - name: Javadoc
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-strategy/target/apidocs
-          target-folder: binance4j-strategy
 
   # Javadoc
 
   deploy-javadocs:
       needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-vision,deploy-wallet,deploy-websocket]
-      runs-on: ubuntu-latest
+      runs-on: ${{OS}}
       steps:
         - uses: actions/checkout@v3
           with:
-            fetch-depth: 0
+            fetch-depth: ${{FETCH_DEPTH}}
         - name: Java Setup
           uses: actions/setup-java@v2
           with:
-            java-version: 8
-            distribution: 'adopt'
+            java-version: ${{JAVA_VERSION}}
+            distribution: ${{JAVA_DISTRIBUTION}}
+
+        # ARTIFACTS INSTALLATIONS
+        
         - name: Install binance4j-core
-          run: cd binance4j-core && mvn install -DskipTests=true
+          run: ${{CORE_INSTALLATION}}
+
+        - name: Install binance4j-market
+          run: ${{MARKET_INSTALLATION}}
+
+        - name: Install binance4j-nft
+          run: ${{NFT_INSTALLATION}}
+
+        - name: Install binance4j-spot
+          run: ${{SPOT_INSTALLATION}}
+
+        - name: Install binance4j-vision
+          run: ${{VISION_INSTALLATION}}
+
+        - name: Install binance4j-wallet
+          run: ${{WALLET_INSTALLATION}}
+
+        - name: Install binance4j-websocket
+          run: ${{WEBSOCKET_INSTALLATION}}
+
+        - name: Install binance4j-strategy
+          run: ${{STRATEGY_INSTALLATION}}
+
+        # ARTIFACTS DEPLOYMENTS
+
         - name: Deploy binance4j-core
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
@@ -244,8 +381,7 @@ jobs:
             clean: true
             folder: binance4j-core/target/apidocs
             target-folder: binance4j-core
-        - name: Install binance4j-market
-          run: cd binance4j-market && mvn install -DskipTests=true
+            
         - name: Deploy binance4j-market
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
@@ -253,8 +389,7 @@ jobs:
             clean: true
             folder: binance4j-market/target/apidocs
             target-folder: binance4j-market
-        - name: Install binance4j-nft
-          run: cd binance4j-nft && mvn install -DskipTests=true
+            
         - name: Deploy binance4j-nft javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
@@ -262,8 +397,7 @@ jobs:
             clean: true
             folder: binance4j-nft/target/apidocs
             target-folder: binance4j-nft
-        - name: Install binance4j-spot
-          run: cd binance4j-spot && mvn install -DskipTests=true
+
         - name: Deploy binance4j-spot javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
@@ -271,8 +405,7 @@ jobs:
             clean: true
             folder: binance4j-spot/target/apidocs
             target-folder: binance4j-spot
-        - name: Install binance4j-vision
-          run: cd binance4j-vision && mvn install -DskipTests=true
+
         - name: Deploy binance4j-vision javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
@@ -280,8 +413,7 @@ jobs:
             clean: true
             folder: binance4j-vision/target/apidocs
             target-folder: binance4j-vision
-        - name: Install binance4j-wallet
-          run: cd binance4j-wallet && mvn install -DskipTests=true
+
         - name: Deploy binance4j-wallet javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
@@ -289,8 +421,7 @@ jobs:
             clean: true
             folder: binance4j-wallet/target/apidocs
             target-folder: binance4j-wallet
-        - name: Install binance4j-websocket
-          run: cd binance4j-websocket && mvn install -DskipTests=true
+
         - name: Deploy binance4j-websocket javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
@@ -298,3 +429,11 @@ jobs:
             clean: true
             folder: binance4j-websocket/target/apidocs
             target-folder: binance4j-websocket
+
+        - name: Deploy binance4j-strategy javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-strategy/target/apidocs
+            target-folder: binance4j-strategy
