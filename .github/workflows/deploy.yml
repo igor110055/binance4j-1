@@ -156,7 +156,7 @@ jobs:
       - name: Install binance4j-websocket
         run: ${{ env.WEBSOCKET_INSTALLATION }}
       - name: Install binance4j-vision
-        run: ${{ env.WEBSOCKET_INSTALLATION }}
+        run: ${{ env.VISION_INSTALLATION }}
       - name: Test
         run: cd binance4j-strategy && mvn test
   
