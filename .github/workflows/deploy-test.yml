@@ -73,7 +73,7 @@ jobs:
           folder: binance4j-market/target/apidocs
           target-folder: binance4j-market
   deploy-nft:
-    needs: deploy-core
+    needs: deploy-market
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -104,7 +104,7 @@ jobs:
           folder: binance4j-nft/target/apidocs
           target-folder: binance4j-nft
   deploy-spot:
-    needs: deploy-core
+    needs: deploy-nft
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -135,7 +135,7 @@ jobs:
           folder: binance4j-spot/target/apidocs
           target-folder: binance4j-spot
   deploy-vision:
-    needs: deploy-core
+    needs: deploy-spot
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -166,7 +166,7 @@ jobs:
           folder: binance4j-vision/target/apidocs
           target-folder: binance4j-vision
   deploy-wallet:
-    needs: deploy-core
+    needs: deploy-vision
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -197,7 +197,7 @@ jobs:
           folder: binance4j-wallet/target/apidocs
           target-folder: binance4j-wallet
   deploy-websocket:
-    needs: deploy-core
+    needs: deploy-wallet
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
