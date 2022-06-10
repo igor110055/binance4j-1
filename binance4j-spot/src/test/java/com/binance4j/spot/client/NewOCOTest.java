@@ -1,16 +1,19 @@
 package com.binance4j.spot.client;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.math.BigDecimal;
+
+import org.junit.jupiter.api.DisplayName;
+
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.core.order.OCOOrder;
 import com.binance4j.core.order.OCOResponse;
 import com.binance4j.core.order.OrderSide;
 import com.binance4j.core.test.ConcurrentTest;
 import com.binance4j.spot.service.TestService;
-import org.junit.jupiter.api.DisplayName;
-
-import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class NewOCOTest extends ConcurrentTest {
 	final SpotClient client = TestService.CLIENT;
@@ -39,7 +42,7 @@ public class NewOCOTest extends ConcurrentTest {
 			assertNotNull(resp.getSymbol());
 			assertNotNull(resp.getTransactionTime());
 		} catch (ApiException e) {
-			System.out.println(e.getMessage());
+
 			fail();
 		}
 	}

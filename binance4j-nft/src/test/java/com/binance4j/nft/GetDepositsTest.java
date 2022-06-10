@@ -1,15 +1,16 @@
 package com.binance4j.nft;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.nft.client.NFTClient;
 import com.binance4j.nft.deposit.NFTDepositHistory;
 import com.binance4j.nft.deposit.NFTDepositHistoryRequest;
 import com.binance4j.nft.service.TestService;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests the Deposit history request
@@ -41,8 +42,7 @@ public class GetDepositsTest {
 	 */
 	NFTDepositHistory test(NFTDepositHistoryRequest req) throws ApiException {
 		NFTDepositHistory history = client.getDeposits(req).execute();
-		System.out.println("--- Result ---");
-		System.out.println(history);
+
 
 		assertNotNull(history.getTotal());
 

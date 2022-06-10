@@ -16,7 +16,7 @@ class HmacSHA256SignerTest extends ConcurrentTest {
     void testSignature() {
         assertDoesNotThrow(() -> {
             String signature = HmacSHA256Signer.sign("Hello World!", "keyboard cat");
-            System.out.println(signature);
+
             assertNotNull(signature);
         });
     }

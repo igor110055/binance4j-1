@@ -1,21 +1,24 @@
 package com.binance4j.client;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.service.TestService;
 import com.binance4j.wallet.client.WalletClient;
 import com.binance4j.wallet.transfer.WalletTransferHistory;
 import com.binance4j.wallet.transfer.WalletTransferHistoryRequest;
 import com.binance4j.wallet.transfer.WalletTransferType;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GetTransferHistoryTest {
 	final WalletClient client = TestService.CLIENT;
 
 	static void test(WalletTransferHistory history) {
-		System.out.println(history);
+
 		assertNotNull(history.getTotal());
 		if (history.getRows() != null) {
 			history.getRows().forEach(r -> {

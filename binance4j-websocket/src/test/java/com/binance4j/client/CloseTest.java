@@ -32,26 +32,23 @@ public class CloseTest {
 
 			@Override
 			public void onOpen(Response response) {
-				System.out.println("open");
+
 			}
 
 			@Override
 			public void onClosing(WebsocketCloseObject websocketCloseObject) {
-				System.out.println("closing");
-				System.out.println(websocketCloseObject);
+
 			}
 
 			@Override
 			public void onClosed(WebsocketCloseObject websocketCloseObject) {
-				System.out.println("closed");
-				System.out.println(websocketCloseObject);
+
 				future.complete(null);
 			}
 
 			@Override
 			public void onMessage(AggTradePayload message) {
-				System.out.println("message");
-				System.out.println(message);
+
 				client.close();
 			}
 		});

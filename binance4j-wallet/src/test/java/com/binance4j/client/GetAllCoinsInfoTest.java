@@ -1,15 +1,16 @@
 package com.binance4j.client;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.service.TestService;
 import com.binance4j.wallet.client.WalletClient;
 import com.binance4j.wallet.coinsinfo.CoinInformation;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class GetAllCoinsInfoTest {
 	final WalletClient client = TestService.CLIENT;
@@ -21,7 +22,7 @@ class GetAllCoinsInfoTest {
 
 		infos.forEach(i -> {
 			if (i.getCoin().equals("BNB")) {
-				System.out.println(i.getNetworkList());
+
 			}
 			assertNotNull(i.getCoin());
 			assertNotNull(i.getDepositAllEnable());

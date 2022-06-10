@@ -52,7 +52,7 @@ class IntervalEventTest extends ConcurrentTest {
     class CompleteTask extends TimerTask {
         @Override
         public void run() {
-            System.out.println("Test completed");
+
             future.complete(event.getTicks());
         }
     }

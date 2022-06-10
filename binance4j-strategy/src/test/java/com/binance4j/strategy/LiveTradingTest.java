@@ -1,11 +1,8 @@
 package com.binance4j.strategy;
 
-import com.binance4j.core.market.CandlestickInterval;
-import com.binance4j.strategy.strategies.AlwaysEnterStrategy;
-import com.binance4j.strategy.strategies.AlwaysExitStrategy;
-import com.binance4j.strategy.trading.StrategyCallback;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,7 +11,13 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import com.binance4j.core.market.CandlestickInterval;
+import com.binance4j.strategy.strategies.AlwaysEnterStrategy;
+import com.binance4j.strategy.strategies.AlwaysExitStrategy;
+import com.binance4j.strategy.trading.StrategyCallback;
 
 class LiveTradingTest {
 	int count = 0;
@@ -30,40 +33,40 @@ class LiveTradingTest {
 
 		callback.onClosed(t -> {
 			assertNotNull(t);
-			System.out.println("closed");
+
 			future.complete(true);
 		});
 
 		callback.onClosing(t -> {
 			assertNotNull(t);
-			System.out.println("closing");
+
 		});
 
 		callback.onOpen(t -> {
 			assertNotNull(t);
-			System.out.println("open");
+
 		});
 
 		callback.onFailure(t -> {
 			assertNotNull(t);
-			System.out.println("failure");
+
 			future.complete(true);
 		});
 
 		callback.onEnter(t -> {
 			assertNotNull(t);
-			System.out.println("enter");
+
 			strategy.unwatch();
 		});
 
 		callback.onExit(t -> {
 			assertNotNull(t);
-			System.out.println("exit");
+
 		});
 
 		callback.onMessage(t -> {
 			assertNotNull(t);
-			System.out.println("message");
+
 			assertNotNull(t);
 		});
 
@@ -83,25 +86,25 @@ class LiveTradingTest {
 
 		callback.onClosed(t -> {
 			assertNotNull(t);
-			System.out.println("closed");
+
 			future.complete(true);
 		});
 
 		callback.onFailure(t -> {
 			assertNotNull(t);
-			System.out.println("failure");
+
 			future.complete(true);
 		});
 
 		callback.onExit(t -> {
 			assertNotNull(t);
-			System.out.println("exit");
+
 			strategy.unwatch();
 		});
 
 		callback.onMessage(t -> {
 			assertNotNull(t);
-			System.out.println("message");
+
 			assertNotNull(t);
 		});
 
@@ -121,14 +124,13 @@ class LiveTradingTest {
 
 		callback.onFailure(t -> {
 			assertNotNull(t);
-			System.out.println("failure");
+
 			future.complete(true);
 		});
 
 		callback.onMessage(t -> {
 			assertNotNull(t);
-			System.out.println("message");
-			System.out.println(t.getSymbol());
+
 
 			count++;
 			set.add(t.getSymbol());

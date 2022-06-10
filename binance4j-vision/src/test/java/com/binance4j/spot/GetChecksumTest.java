@@ -1,5 +1,12 @@
 package com.binance4j.spot;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.core.exception.InvalidDateException;
 import com.binance4j.core.exception.NotFoundException;
@@ -7,10 +14,6 @@ import com.binance4j.core.market.CandlestickInterval;
 import com.binance4j.service.TestService;
 import com.binance4j.vision.spot.VisionChecksum;
 import com.binance4j.vision.spot.VisionSpotClient;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class GetChecksumTest {
 	final VisionSpotClient client = TestService.CLIENT;
@@ -34,7 +37,7 @@ public class GetChecksumTest {
 	void testNotFoundSync() {
 		Exception exception = assertThrows(ApiException.class,
 				() -> client.getAggTradesChecksum(symbol, "1995", month, day).getChecksum());
-		System.out.println(exception.getMessage());
+
 		assertTrue(exception.getMessage().contains(new NotFoundException().getMessage()));
 	}
 

@@ -1,13 +1,14 @@
 package com.binance4j.client;
 
-import com.binance4j.core.exception.ApiException;
-import com.binance4j.websocket.userdata.ListenKey;
-import com.binance4j.websocket.userdata.UserDataClient;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.binance4j.core.exception.ApiException;
+import com.binance4j.websocket.userdata.ListenKey;
+import com.binance4j.websocket.userdata.UserDataClient;
 
 class UserDataClientTest {
 
@@ -23,7 +24,7 @@ class UserDataClientTest {
 	void testUserDataStream() throws ApiException {
 		ListenKey listenKey = client.startUserDataStream().execute();
 		assertTrue(listenKey.getListenKey().length() > 0);
-		System.out.println(listenKey.getListenKey());
+
 		assertDoesNotThrow(() -> client.keepAliveUserDataStream(listenKey.getListenKey()));
 		assertDoesNotThrow(() -> client.closeUserDataStream(listenKey.getListenKey()).execute());
 	}

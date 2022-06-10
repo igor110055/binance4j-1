@@ -1,5 +1,8 @@
 package com.binance4j.client;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.utils.BaseWebsocketClientTest;
 import com.binance4j.utils.TestCallback;
@@ -8,9 +11,6 @@ import com.binance4j.websocket.client.BaseWebsocketClient;
 import com.binance4j.websocket.userdata.UserDataClient;
 import com.binance4j.websocket.userdata.UserDataUpdatePayload;
 import com.binance4j.websocket.userdata.WebsocketUserDataClient;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class WebsocketUserDataClientTest extends BaseWebsocketClientTest<UserDataUpdatePayload> {
 
@@ -52,12 +52,7 @@ class WebsocketUserDataClientTest extends BaseWebsocketClientTest<UserDataUpdate
 			assertNotNull(message.getEventTime());
 			assertNotNull(message.getEventType());
 
-			System.out.println("getBalanceUpdateEvent");
-			System.out.println(message.getBalanceUpdateEvent());
-			System.out.println("getOutboundAccountPositionUpdateEvent");
-			System.out.println(message.getOutboundAccountPositionUpdateEvent());
-			System.out.println("getOrderTradeUpdateEvent");
-			System.out.println(message.getOrderTradeUpdateEvent());
+
 		}
 	}
 }

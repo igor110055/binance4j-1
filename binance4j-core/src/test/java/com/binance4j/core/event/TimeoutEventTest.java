@@ -28,7 +28,7 @@ class TimeoutEventTest extends ConcurrentTest {
     @DisplayName("The event should execute")
     void testExecution() throws InterruptedException, ExecutionException {
         new TimeoutEvent(Duration.ofSeconds(1), () -> {
-            System.out.println("TimeoutEvent's task called ✅");
+
             future.complete(true);
         });
 
@@ -46,7 +46,7 @@ class TimeoutEventTest extends ConcurrentTest {
 
         // we program the event between the two schedules
         event = new TimeoutEvent(Duration.ofSeconds(2), () -> {
-            System.out.println("TimeoutEvent's task called ✅");
+
             future.complete(false);
         });
 
@@ -56,7 +56,7 @@ class TimeoutEventTest extends ConcurrentTest {
     class CancelTask extends TimerTask {
         @Override
         public void run() {
-            System.out.println("Event canceled");
+
             event.cancel();
         }
     }
@@ -64,7 +64,7 @@ class TimeoutEventTest extends ConcurrentTest {
     class CompleteTask extends TimerTask {
         @Override
         public void run() {
-            System.out.println("Test completed");
+
             future.complete(true);
         }
     }

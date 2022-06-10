@@ -1,14 +1,17 @@
 package com.binance4j.client;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.service.TestService;
 import com.binance4j.wallet.client.WalletClient;
 import com.binance4j.wallet.snapshot.AccountSnapshotRequest;
 import com.binance4j.wallet.snapshot.futures.FuturesAccountSnapshotResponse;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GetFuturesAccountSnapshotTest {
 	final WalletClient client = TestService.CLIENT;
@@ -31,7 +34,7 @@ class GetFuturesAccountSnapshotTest {
 				});
 			});
 		} catch (ApiException e) {
-			System.out.println(e.getMessage());
+
 			assertTrue(true);
 		}
 	}
@@ -58,7 +61,7 @@ class GetFuturesAccountSnapshotTest {
 				});
 			});
 		} catch (ApiException e) {
-			System.out.println(e.getMessage());
+
 			assertTrue(true);
 		}
 	}

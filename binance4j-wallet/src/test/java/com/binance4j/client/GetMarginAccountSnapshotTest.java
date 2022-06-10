@@ -1,14 +1,18 @@
 package com.binance4j.client;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.binance4j.core.exception.ApiException;
 import com.binance4j.service.TestService;
 import com.binance4j.wallet.client.WalletClient;
 import com.binance4j.wallet.snapshot.AccountSnapshotRequest;
 import com.binance4j.wallet.snapshot.margin.MarginAccountSnapshotResponse;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class GetMarginAccountSnapshotTest {
 	final WalletClient client = TestService.CLIENT;
@@ -20,7 +24,7 @@ class GetMarginAccountSnapshotTest {
 			MarginAccountSnapshotResponse snapshot = client.getMarginAccountSnapshot().execute();
 			test(snapshot);
 		} catch (ApiException e) {
-			System.out.println(e.getMessage());
+
 			assertTrue(true);
 		}
 	}
@@ -38,12 +42,12 @@ class GetMarginAccountSnapshotTest {
 	}
 
 	void test(MarginAccountSnapshotResponse snapshot) {
-		System.out.println(snapshot);
+
 		assertNotEquals(0, snapshot.getCode());
 		assertNotNull(snapshot.getMsg());
 
 		snapshot.getSnapshotVos().forEach(s -> {
-			System.out.println(s);
+
 			assertNotNull(s.getType());
 			assertNotNull(s.getUpdateTime());
 			// can be null
