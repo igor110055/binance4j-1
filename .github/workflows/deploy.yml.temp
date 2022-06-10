@@ -1,0 +1,254 @@
+name: deploy
+on:
+  push:
+    branches:
+      - main
+env:
+  BINANCE_API_KEY: ${{ secrets.BINANCE_API_KEY }}
+  BINANCE_API_SECRET: ${{ secrets.BINANCE_API_SECRET }}
+  GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+  PASSPHRASE: ${{ secrets.PASSPHRASE }}
+  OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+  OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SERVERS: '[{  "id": "ossrh",  "username": "${{ secrets.OSSRH_USERNAME }}",   "password": "${{ secrets.OSSRH_PASSWORD }}"}]'
+jobs:
+  deploy-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Configure Settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: ${{ env.SERVERS }}
+      - name: Test
+        run: cd binance4j-core && mvn test
+      - name: Deploy
+        run: cd binance4j-core && mvn -DskipTests=true deploy
+      - name: Deploy javadoc to gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: gh-pages
+          clean: true
+          folder: target/apidocs
+          target-folder: binance4j-core
+      - name: Sleep for 15m
+        uses: juliangruber/sleep-action@v1
+        with:
+          time: 15m
+  deploy-market:
+    needs: deploy-core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Configure Settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: ${{ env.SERVERS }}
+      - name: Test
+        run: cd binance4j-market && mvn test
+      - name: Deploy
+        run: cd binance4j-market && mvn -DskipTests=true deploy
+      - name: Deploy javadoc to gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: gh-pages
+          clean: true
+          folder: target/apidocs
+          target-folder: binance4j-core
+  deploy-nft:
+    needs: deploy-core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Configure Settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: ${{ env.SERVERS }}
+      - name: Test
+        run: cd binance4j-nft && mvn test
+      - name: Deploy
+        run: cd binance4j-nft && mvn -DskipTests=true deploy
+      - name: Deploy javadoc to gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: gh-pages
+          clean: true
+          folder: target/apidocs
+          target-folder: binance4j-core
+  deploy-spot:
+    needs: deploy-core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Configure Settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: ${{ env.SERVERS }}
+      - name: Test
+        run: cd binance4j-spot && mvn test
+      - name: Deploy
+        run: cd binance4j-spot && mvn -DskipTests=true deploy
+      - name: Deploy javadoc to gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: gh-pages
+          clean: true
+          folder: target/apidocs
+          target-folder: binance4j-core
+  deploy-vision:
+    needs: deploy-core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Configure Settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: ${{ env.SERVERS }}
+      - name: Test
+        run: cd binance4j-vision && mvn test
+      - name: Deploy
+        run: cd binance4j-vision && mvn -DskipTests=true deploy
+      - name: Deploy javadoc to gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: gh-pages
+          clean: true
+          folder: target/apidocs
+          target-folder: binance4j-core
+  deploy-wallet:
+    needs: deploy-core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Configure Settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: ${{ env.SERVERS }}
+      - name: Test
+        run: cd binance4j-wallet && mvn test
+      - name: Deploy
+        run: cd binance4j-wallet && mvn -DskipTests=true deploy
+      - name: Deploy javadoc to gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: gh-pages
+          clean: true
+          folder: target/apidocs
+          target-folder: binance4j-core
+  deploy-websocket:
+    needs: deploy-core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Configure Settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: ${{ env.SERVERS }}
+      - name: Test
+        run: cd binance4j-websocket && mvn test
+      - name: Deploy
+        run: cd binance4j-websocket && mvn -DskipTests=true deploy
+      - name: Deploy javadoc to gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: gh-pages
+          clean: true
+          folder: target/apidocs
+          target-folder: binance4j-core
+      - name: Sleep for 15m
+        uses: juliangruber/sleep-action@v1
+        with:
+          time: 15m
+  deploy-strategy:
+    needs: deploy-websocket
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Java Setup
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: 'adopt'
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+      - name: Configure Settings
+        uses: s4u/maven-settings-action@v2.6.0
+        with:
+          servers: ${{ env.SERVERS }}
+      - name: Test
+        run: cd binance4j-strategy && mvn test
+      - name: Deploy
+        run: cd binance4j-strategy && mvn -DskipTests=true deploy
+      - name: Deploy javadoc to gh-pages
+        uses: JamesIves/github-pages-deploy-action@4.1.8
+        with:
+          branch: gh-pages
+          clean: true
+          folder: target/apidocs
+          target-folder: binance4j-core
