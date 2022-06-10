@@ -280,6 +280,8 @@ jobs:
             clean: true
             folder: binance4j-vision/target/apidocs
             target-folder: binance4j-vision
+        - name: Install binance4j-wallet
+          run: cd binance4j-wallet && mvn install -DskipTests=true
         - name: Deploy binance4j-wallet javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
