@@ -259,6 +259,8 @@ jobs:
           with:
             java-version: 8
             distribution: 'adopt'
+        - name: Install binance4j-core
+          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-market
           run: cd binance4j-market && mvn install -DskipTests=true
         - name: Deploy binance4j-market
@@ -282,6 +284,8 @@ jobs:
           with:
             java-version: 8
             distribution: 'adopt'
+        - name: Install binance4j-core
+          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-nft
           run: cd binance4j-nft && mvn install -DskipTests=true
         - name: Deploy binance4j-nft javadoc
@@ -305,8 +309,8 @@ jobs:
           with:
             java-version: 8
             distribution: 'adopt'
-        - name: Install binance4j-nft
-          run: cd binance4j-nft && mvn install -DskipTests=true
+        - name: Install binance4j-core
+          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-spot
           run: cd binance4j-spot && mvn install -DskipTests=true
         - name: Deploy binance4j-spot javadoc
@@ -330,10 +334,8 @@ jobs:
           with:
             java-version: 8
             distribution: 'adopt'
-        - name: Install binance4j-nft
-          run: cd binance4j-nft && mvn install -DskipTests=true
-        - name: Install binance4j-spot
-          run: cd binance4j-spot && mvn install -DskipTests=true
+        - name: Install binance4j-core
+          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-vision
           run: cd binance4j-vision && mvn install -DskipTests=true
         - name: Deploy binance4j-vision javadoc
@@ -357,12 +359,8 @@ jobs:
           with:
             java-version: 8
             distribution: 'adopt'
-        - name: Install binance4j-nft
-          run: cd binance4j-nft && mvn install -DskipTests=true
-        - name: Install binance4j-spot
-          run: cd binance4j-spot && mvn install -DskipTests=true
-        - name: Install binance4j-vision
-          run: cd binance4j-vision && mvn install -DskipTests=true
+        - name: Install binance4j-core
+          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-wallet
           run: cd binance4j-wallet && mvn install -DskipTests=true
         - name: Deploy binance4j-wallet javadoc
@@ -387,6 +385,8 @@ jobs:
           with:
             java-version: 8
             distribution: 'adopt'
+        - name: Install binance4j-core
+          run: cd binance4j-core && mvn install -DskipTests=true
         - name: Install binance4j-websocket
           run: cd binance4j-websocket && mvn install -DskipTests=true
         - name: Deploy binance4j-websocket javadoc
