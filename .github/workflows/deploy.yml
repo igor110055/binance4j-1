@@ -180,6 +180,8 @@ jobs:
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
+      - name: Install binance4j-core
+        run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-core && mvn -DskipTests=true deploy
 
@@ -201,6 +203,8 @@ jobs:
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
+      - name: Install binance4j-core
+        run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-market && mvn -DskipTests=true deploy
 
@@ -222,6 +226,8 @@ jobs:
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
+      - name: Install binance4j-core
+        run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-nft && mvn -DskipTests=true deploy
 
@@ -243,6 +249,8 @@ jobs:
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
+      - name: Install binance4j-core
+        run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-spot && mvn -DskipTests=true deploy
 
@@ -264,6 +272,8 @@ jobs:
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
+      - name: Install binance4j-core
+        run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-vision && mvn -DskipTests=true deploy
 
@@ -285,6 +295,8 @@ jobs:
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
+      - name: Install binance4j-core
+        run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-wallet && mvn -DskipTests=true deploy
 
@@ -306,6 +318,8 @@ jobs:
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
+      - name: Install binance4j-core
+        run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-websocket && mvn -DskipTests=true deploy
 
@@ -327,6 +341,12 @@ jobs:
         uses: s4u/maven-settings-action@v2.6.0
         with:
           servers: ${{ env.SERVERS }}
+      - name: Install binance4j-core
+        run: ${{ env.CORE_INSTALLATION }}
+      - name: Install binance4j-websocket
+        run: ${{ env.WEBSOCKET_INSTALLATION }}
+      - name: Install binance4j-vision
+        run: ${{ env.VISION_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-strategy && mvn -DskipTests=true deploy
 
