@@ -34,13 +34,7 @@ jobs:
         run: cd binance4j-core && mvn test
       - name: Deploy
         run: cd binance4j-core && mvn -DskipTests=true deploy
-      - name: Deploy javadoc to gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-core/target/apidocs
-          target-folder: binance4j-core
+
   deploy-market:
     needs: deploy-core
     runs-on: ubuntu-latest
@@ -65,15 +59,9 @@ jobs:
         run: cd binance4j-market && mvn test
       - name: Deploy
         run: cd binance4j-market && mvn -DskipTests=true deploy
-      - name: Deploy javadoc to gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-market/target/apidocs
-          target-folder: binance4j-market
+
   deploy-nft:
-    needs: deploy-market
+    needs: deploy-core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -96,15 +84,9 @@ jobs:
         run: cd binance4j-nft && mvn test
       - name: Deploy
         run: cd binance4j-nft && mvn -DskipTests=true deploy
-      - name: Deploy javadoc to gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-nft/target/apidocs
-          target-folder: binance4j-nft
+
   deploy-spot:
-    needs: deploy-nft
+    needs: deploy-core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -127,15 +109,9 @@ jobs:
         run: cd binance4j-spot && mvn test
       - name: Deploy
         run: cd binance4j-spot && mvn -DskipTests=true deploy
-      - name: Deploy javadoc to gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-spot/target/apidocs
-          target-folder: binance4j-spot
+
   deploy-vision:
-    needs: deploy-spot
+    needs: deploy-core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -158,15 +134,9 @@ jobs:
         run: cd binance4j-vision && mvn test
       - name: Deploy
         run: cd binance4j-vision && mvn -DskipTests=true deploy
-      - name: Deploy javadoc to gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-vision/target/apidocs
-          target-folder: binance4j-vision
+
   deploy-wallet:
-    needs: deploy-vision
+    needs: deploy-core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -189,15 +159,9 @@ jobs:
         run: cd binance4j-wallet && mvn test
       - name: Deploy
         run: cd binance4j-wallet && mvn -DskipTests=true deploy
-      - name: Deploy javadoc to gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-wallet/target/apidocs
-          target-folder: binance4j-wallet
+
   deploy-websocket:
-    needs: deploy-wallet
+    needs: deploy-core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -220,15 +184,9 @@ jobs:
         run: cd binance4j-websocket && mvn test
       - name: Deploy
         run: cd binance4j-websocket && mvn -DskipTests=true deploy
-      - name: Deploy javadoc to gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-websocket/target/apidocs
-          target-folder: binance4j-websocket
+
   deploy-strategy:
-    needs: deploy-websocket
+    needs: [deploy-core, deploy-websocket, deploy-vision]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -255,10 +213,80 @@ jobs:
         run: cd binance4j-strategy && mvn test
       - name: Deploy
         run: cd binance4j-strategy && mvn -DskipTests=true deploy
-      - name: Deploy javadoc to gh-pages
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-strategy/target/apidocs
-          target-folder: binance4j-strategy
+
+  deploy-javadocs:
+      needs: [deploy-strategy]
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+        - name: Java Setup
+          uses: actions/setup-java@v2
+          with:
+            java-version: 8
+            distribution: 'adopt'
+
+        - name: Deploy binance4j-core javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-core/target/apidocs
+            target-folder: binance4j-strategy
+
+        - name: Deploy binance4j-market javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-market/target/apidocs
+            target-folder: binance4j-strategy
+
+        - name: Deploy binance4j-nft javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-nft/target/apidocs
+            target-folder: binance4j-strategy
+
+        - name: Deploy binance4j-spot javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-spot/target/apidocs
+            target-folder: binance4j-strategy
+
+        - name: Deploy binance4j-vision javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-vision/target/apidocs
+            target-folder: binance4j-strategy
+
+        - name: Deploy binance4j-wallet javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-wallet/target/apidocs
+            target-folder: binance4j-strategy
+
+        - name: Deploy binance4j-websocket javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-websocket/target/apidocs
+            target-folder: binance4j-strategy
+            
+        - name: Deploy binance4j-strategy javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: gh-pages
+            clean: true
+            folder: binance4j-strategy/target/apidocs
+            target-folder: binance4j-strategy
