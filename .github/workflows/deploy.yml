@@ -40,7 +40,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Test
         run: cd binance4j-core && mvn test
 
@@ -54,7 +54,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Install binance4j-core
         run: ${{ env.CORE_INSTALLATION }}
       - name: Test
@@ -70,7 +70,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Install binance4j-core
         run: ${{ env.CORE_INSTALLATION }}
       - name: Test
@@ -86,7 +86,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Install binance4j-core
         run: ${{ env.CORE_INSTALLATION }}
       - name: Test
@@ -102,7 +102,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Install binance4j-core
         run: ${{ env.CORE_INSTALLATION }}
       - name: Test
@@ -118,7 +118,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Install binance4j-core
         run: ${{ env.CORE_INSTALLATION }}
       - name: Test
@@ -134,7 +134,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Install binance4j-core
         run: ${{ env.CORE_INSTALLATION }}
       - name: Test
@@ -150,7 +150,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Install binance4j-core
         run: ${{ env.CORE_INSTALLATION }}
       - name: Install binance4j-websocket
@@ -173,7 +173,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
@@ -194,7 +194,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
@@ -215,7 +215,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
@@ -236,7 +236,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
@@ -257,7 +257,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
@@ -278,7 +278,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
@@ -299,7 +299,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
@@ -320,7 +320,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ env.JAVA_VERSION }}
-          distribution: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
       - name: Import GPG Key
         uses: crazy-max/ghaction-import-gpg@v1
       - name: Configure Settings
@@ -333,7 +333,7 @@ jobs:
   # Javadoc
 
   deploy-javadocs:
-      needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-vision,deploy-wallet,deploy-websocket]
+      needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-strategy,deploy-vision,deploy-wallet,deploy-websocket]
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
@@ -343,7 +343,7 @@ jobs:
           uses: actions/setup-java@v2
           with:
             java-version: ${{ env.JAVA_VERSION }}
-            distribution: ${{ env.JAVA_VERSION }}
+            distribution: ${{ env.JAVA_DISTRIBUTION }}
 
         # ARTIFACTS INSTALLATIONS
         
