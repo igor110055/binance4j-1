@@ -227,8 +227,8 @@ jobs:
             java-version: 8
             distribution: 'adopt'
         
+        - run: cd binance4j-core && mvn install -DskipTests=true
         - name: Deploy binance4j-core javadoc
-          run: cd binance4j-core && mvn install -DskipTests=true
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
             branch: gh-pages
@@ -236,8 +236,8 @@ jobs:
             folder: binance4j-core/target/apidocs
             target-folder: binance4j-core
 
+        - run: cd binance4j-market && mvn install -DskipTests=true
         - name: Deploy binance4j-market javadoc
-          run: cd binance4j-market && mvn install -DskipTests=true
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
             branch: gh-pages
@@ -245,8 +245,8 @@ jobs:
             folder: binance4j-market/target/apidocs
             target-folder: binance4j-market
 
+        - run: cd binance4j-nft && mvn install -DskipTests=true
         - name: Deploy binance4j-nft javadoc
-          run: cd binance4j-nft && mvn install -DskipTests=true
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
             branch: gh-pages
@@ -254,8 +254,8 @@ jobs:
             folder: binance4j-nft/target/apidocs
             target-folder: binance4j-nft
 
+        - run: cd binance4j-spot && mvn install -DskipTests=true
         - name: Deploy binance4j-spot javadoc
-          run: cd binance4j-spot && mvn install -DskipTests=true
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
             branch: gh-pages
@@ -263,8 +263,8 @@ jobs:
             folder: binance4j-spot/target/apidocs
             target-folder: binance4j-spot
 
+        - run: cd binance4j-vision && mvn install -DskipTests=true
         - name: Deploy binance4j-vision javadoc
-          run: cd binance4j-vision && mvn install -DskipTests=true
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
             branch: gh-pages
@@ -272,8 +272,8 @@ jobs:
             folder: binance4j-vision/target/apidocs
             target-folder: binance4j-vision
 
+        - run: cd binance4j-wallet && mvn install -DskipTests=true
         - name: Deploy binance4j-wallet javadoc
-          run: cd binance4j-wallet && mvn install -DskipTests=true
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
             branch: gh-pages
@@ -281,8 +281,8 @@ jobs:
             folder: binance4j-wallet/target/apidocs
             target-folder: binance4j-wallet
 
+        - run: cd binance4j-websocket && mvn install -DskipTests=true
         - name: Deploy binance4j-websocket javadoc
-          run: cd binance4j-websocket && mvn install -DskipTests=true
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
             branch: gh-pages
@@ -290,8 +290,8 @@ jobs:
             folder: binance4j-websocket/target/apidocs
             target-folder: binance4j-websocket
 
+        - run: cd binance4j-strategy && mvn install -DskipTests=true
         - name: Deploy binance4j-strategy javadoc
-          run: cd binance4j-strategy && mvn install -DskipTests=true
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
             branch: gh-pages
