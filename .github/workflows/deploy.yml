@@ -31,6 +31,7 @@ jobs:
   ##### TESTS #####
 
   test-core:
+    name: Test binance4j-core
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -45,6 +46,7 @@ jobs:
         run: cd binance4j-core && mvn test
 
   test-market:
+    name: Test binance4j-market
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -61,6 +63,7 @@ jobs:
         run: cd binance4j-market && mvn test
 
   test-nft:
+    name: Test binance4j-nft
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -77,6 +80,7 @@ jobs:
         run: cd binance4j-nft && mvn test
 
   test-spot:
+    name: Test binance4jspot
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -93,6 +97,7 @@ jobs:
         run: cd binance4j-spot && mvn test
 
   test-vision:
+    name: Test binance4j-vision
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -109,6 +114,7 @@ jobs:
         run: cd binance4j-vision && mvn test
 
   test-wallet:
+    name: Test binance4j-wallet
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -125,6 +131,7 @@ jobs:
         run: cd binance4j-wallet && mvn test
 
   test-websocket:
+    name: Test binance4j-websocket
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -141,6 +148,7 @@ jobs:
         run: cd binance4j-websocket && mvn test
 
   test-strategy:
+    name: Test binance4j-strategy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -163,6 +171,7 @@ jobs:
   ##### DEPLOYMENTS #####
 
   deploy-core:
+    name: Deploy binance4j-core
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
     runs-on: ubuntu-latest
     steps:
@@ -186,6 +195,7 @@ jobs:
         run: cd binance4j-core && mvn -DskipTests=true deploy
 
   deploy-market:
+    name: Deploy binance4j-market
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
     runs-on: ubuntu-latest
     steps:
@@ -209,6 +219,7 @@ jobs:
         run: cd binance4j-market && mvn -DskipTests=true deploy
 
   deploy-nft:
+    name: Deploy binance4j-nft
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
     runs-on: ubuntu-latest
     steps:
@@ -232,6 +243,7 @@ jobs:
         run: cd binance4j-nft && mvn -DskipTests=true deploy
 
   deploy-spot:
+    name: Deploy binance4j-spot
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
     runs-on: ubuntu-latest
     steps:
@@ -255,6 +267,7 @@ jobs:
         run: cd binance4j-spot && mvn -DskipTests=true deploy
 
   deploy-vision:
+    name: Deploy binance4j-vision
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
     runs-on: ubuntu-latest
     steps:
@@ -278,6 +291,7 @@ jobs:
         run: cd binance4j-vision && mvn -DskipTests=true deploy
 
   deploy-wallet:
+    name: Deploy binance4j-wallet
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
     runs-on: ubuntu-latest
     steps:
@@ -301,6 +315,7 @@ jobs:
         run: cd binance4j-wallet && mvn -DskipTests=true deploy
 
   deploy-websocket:
+    name: Deploy binance4j-websocket
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
     runs-on: ubuntu-latest
     steps:
@@ -324,6 +339,7 @@ jobs:
         run: cd binance4j-websocket && mvn -DskipTests=true deploy
 
   deploy-strategy:
+    name: Deploy binance4j-strategy
     needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
     runs-on: ubuntu-latest
     steps:
@@ -353,6 +369,7 @@ jobs:
   # Javadoc
 
   deploy-javadocs:
+      name: Deploy Javadocs
       needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
       runs-on: ubuntu-latest
       steps:
@@ -470,13 +487,13 @@ jobs:
           node-version: 16.x
           cache: yarn
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: cd binance4j-documentation && yarn install --frozen-lockfile
       - name: Build website
         run: yarn build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./binance4j-documentation/build
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
