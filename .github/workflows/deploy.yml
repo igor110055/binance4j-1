@@ -353,7 +353,7 @@ jobs:
   # Javadoc
 
   deploy-javadocs:
-      needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-strategy,deploy-vision,deploy-wallet,deploy-websocket]
+      needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
@@ -380,7 +380,7 @@ jobs:
           run: ${{ env.SPOT_INSTALLATION }}
 
         - name: Install binance4j-vision
-          run: ${{ env.WEBSOCKET_INSTALLATION }}
+          run: ${{ env.VISION_INSTALLATION }}
 
         - name: Install binance4j-wallet
           run: ${{ env.WALLET_INSTALLATION }}
