@@ -489,7 +489,7 @@ jobs:
       - name: Install dependencies
         run: cd binance4j-documentation && yarn install --frozen-lockfile
       - name: Build website
-        run: yarn build
+        run: cd binance4j-documentation && yarn build
       - name: Deploy binance4j-strategy javadoc
         uses: JamesIves/github-pages-deploy-action@4.1.8
         with:
