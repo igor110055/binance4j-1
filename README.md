@@ -20,7 +20,7 @@
 <h2 align="center">Java connectors and technical analysis for the Binance API</h2>
 
 <h3 align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-documentation/">
+	<a href="https://binance4j.github.io/binance4j/">
 		Documentation
 	</a>
 </h3>
@@ -41,7 +41,7 @@
 <!-- badges -->
 
 <p align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-market">
+	<a href="https://binance4j.github.io/binance4j-market">
 		<img src="https://img.shields.io/badge/javadoc-latest-informational"alt="Javadoc"/>
 	</a>
 </p>
@@ -91,7 +91,7 @@
 
 <!-- badges -->
 <p align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-nft">
+	<a href="https://binance4j.github.io/binance4j-nft">
 		<img src="https://img.shields.io/badge/javadoc-latest-informational" alt="Javadoc"/>
 	</a>
 </p>
@@ -133,7 +133,7 @@
 
 <!-- badges -->
 <p align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-spot">
+	<a href="https://binance4j.github.io/binance4j-spot">
 		<img src="https://img.shields.io/badge/javadoc-latest-informational" alt="Javadoc"/>
 	</a>
 </p>
@@ -177,7 +177,7 @@
 
 <!-- badges -->
 <p align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-wallet">
+	<a href="https://binance4j.github.io/binance4j-wallet">
 		<img src="https://img.shields.io/badge/javadoc-latest-informational" alt="Javadoc"/>
 	</a>
 </p>
@@ -235,7 +235,7 @@
 <!-- badges -->
 
 <p align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-websocket">
+	<a href="https://binance4j.github.io/binance4j-websocket">
 		<img src="https://img.shields.io/badge/javadoc-latest-informational"alt="Javadoc"/>
 	</a>
 </p>
@@ -283,7 +283,7 @@
 
 <!-- badges -->
 <p align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-vision">
+	<a href="https://binance4j.github.io/binance4j-vision">
 		<img src="https://img.shields.io/badge/javadoc-latest-informational" alt="Javadoc"/>
 	</a>
 </p>
@@ -330,7 +330,7 @@ coming soon
 
 <!-- badges -->
 <p align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-strategy">
+	<a href="https://binance4j.github.io/binance4j-strategy">
 		<img src="https://img.shields.io/badge/javadoc-latest-informational" alt="Javadoc"/>
 	</a>
 </p>
@@ -376,7 +376,7 @@ coming soon
 <!-- badges -->
 
 <p align="center">
-	<a href="https://binance4j.github.io/binance4j/binance4j-core">
+	<a href="https://binance4j.github.io/binance4j-core">
 		<img src="https://img.shields.io/badge/javadoc-latest-informational"alt="Javadoc"/>
 	</a>
 </p>
