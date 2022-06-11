@@ -474,25 +474,25 @@ jobs:
             folder: binance4j-strategy/target/apidocs
             target-folder: binance4j-strategy
 
-  ##### DOCUMENTATION #####
+  # ##### DOCUMENTATION #####
 
-  deploy-documentation:
-    needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
-    name: Deploy documentation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: yarn
-      - name: Install dependencies
-        run: cd binance4j-documentation && yarn install --frozen-lockfile
-      - name: Build website
-        run: cd binance4j-documentation && yarn build
-      - name: Deploy binance4j-strategy javadoc
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: gh-pages
-          clean: true
-          folder: binance4j-documentation/build
+  # deploy-doc:
+  #   name: Deploy to GitHub Pages
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16.x
+  #         cache: yarn
+  #     - name: Install dependencies
+  #       run: cd binance4j-documentation && yarn install --frozen-lockfile
+  #     - name: Build website
+  #       run: cd binance4j-documentation && yarn build
+  #     - name: Deploy to GitHub Pages
+  #       uses: peaceiris/actions-gh-pages@v3
+  #       with:
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #         publish_dir: ./binance4j-documentation/build
+  #         user_name: github-actions[bot]
+  #         user_email: 41898282+github-actions[bot]@users.noreply.github.com
