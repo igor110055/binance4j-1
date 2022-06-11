@@ -490,10 +490,9 @@ jobs:
         run: cd binance4j-documentation && yarn install --frozen-lockfile
       - name: Build website
         run: yarn build
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy binance4j-strategy javadoc
+        uses: JamesIves/github-pages-deploy-action@4.1.8
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./binance4j-documentation/build
-          user_name: github-actions[bot]
-          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          branch: gh-pages
+          clean: true
+          folder: binance4j-documentation/build
