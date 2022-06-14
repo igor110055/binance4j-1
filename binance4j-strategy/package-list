@@ -1,0 +1,4 @@
+com.binance4j.strategy.backtesting
+com.binance4j.strategy.bar
+com.binance4j.strategy.service
+com.binance4j.strategy.trading
