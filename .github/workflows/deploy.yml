@@ -452,7 +452,7 @@ jobs:
 
   copy-to-gh-pages:
     name: Copy temp gh-pages to gh-pages
-    needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-strategy,deploy-vision,deploy-wallet,deploy-websocket,deploy-documentation]
+    needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-strategy,deploy-vision,deploy-wallet,deploy-websocket,deploy-doc]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
