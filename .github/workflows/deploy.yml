@@ -461,7 +461,6 @@ jobs:
         with:
           github_token: ${{ env.GITHUB_TOKEN }}
           branches: gh-pages
-      - name: Copy temp gh-pages
       - name: Merge ${{ env.TEMP_GH_PAGES }} -> gh-pages
         uses: devmasx/merge-branch@master
         with:
