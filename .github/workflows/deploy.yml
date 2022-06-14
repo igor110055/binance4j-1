@@ -26,7 +26,7 @@ env:
   WALLET_INSTALLATION: cd binance4j-wallet && mvn install -DskipTests=true 
   WEBSOCKET_INSTALLATION: cd binance4j-websocket && mvn install -DskipTests=true 
   TEMP_GH_PAGES: gh-pages-temp
-
+  
 jobs:
   
   ##### TESTS #####
@@ -194,13 +194,6 @@ jobs:
         run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-core && mvn -DskipTests=true deploy
-      - name: Deploy binance4j-core
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: ${{ env.TEMP_GH_PAGES }}
-          clean: true
-          folder: binance4j-core/target/apidocs
-          target-folder: binance4j-core
 
   deploy-market:
     name: Deploy binance4j-market
@@ -225,13 +218,6 @@ jobs:
         run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-market && mvn -DskipTests=true deploy
-      - name: Deploy binance4j-market
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: ${{ env.TEMP_GH_PAGES }}
-          clean: true
-          folder: binance4j-market/target/apidocs
-          target-folder: binance4j-market
 
   deploy-nft:
     name: Deploy binance4j-nft
@@ -256,13 +242,6 @@ jobs:
         run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-nft && mvn -DskipTests=true deploy
-      - name: Deploy binance4j-nft javadoc
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: ${{ env.TEMP_GH_PAGES }}
-          clean: true
-          folder: binance4j-nft/target/apidocs
-          target-folder: binance4j-nft
 
   deploy-spot:
     name: Deploy binance4j-spot
@@ -287,13 +266,6 @@ jobs:
         run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-spot && mvn -DskipTests=true deploy
-      - name: Deploy binance4j-spot javadoc
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: ${{ env.TEMP_GH_PAGES }}
-          clean: true
-          folder: binance4j-spot/target/apidocs
-          target-folder: binance4j-spot
 
   deploy-vision:
     name: Deploy binance4j-vision
@@ -318,13 +290,6 @@ jobs:
         run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-vision && mvn -DskipTests=true deploy
-      - name: Deploy binance4j-vision javadoc
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: ${{ env.TEMP_GH_PAGES }}
-          clean: true
-          folder: binance4j-vision/target/apidocs
-          target-folder: binance4j-vision
 
   deploy-wallet:
     name: Deploy binance4j-wallet
@@ -349,13 +314,6 @@ jobs:
         run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-wallet && mvn -DskipTests=true deploy
-      - name: Deploy binance4j-wallet javadoc
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: ${{ env.TEMP_GH_PAGES }}
-          clean: true
-          folder: binance4j-wallet/target/apidocs
-          target-folder: binance4j-wallet
 
   deploy-websocket:
     name: Deploy binance4j-websocket
@@ -380,13 +338,6 @@ jobs:
         run: ${{ env.CORE_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-websocket && mvn -DskipTests=true deploy
-      - name: Deploy binance4j-websocket javadoc
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: ${{ env.TEMP_GH_PAGES }}
-          clean: true
-          folder: binance4j-websocket/target/apidocs
-          target-folder: binance4j-websocket
 
   deploy-strategy:
     name: Deploy binance4j-strategy
@@ -415,13 +366,114 @@ jobs:
         run: ${{ env.VISION_INSTALLATION }}
       - name: Deploy
         run: cd binance4j-strategy && mvn -DskipTests=true deploy
-      - name: Deploy binance4j-strategy javadoc
-        uses: JamesIves/github-pages-deploy-action@4.1.8
-        with:
-          branch: ${{ env.TEMP_GH_PAGES }}
-          clean: true
-          folder: binance4j-strategy/target/apidocs
-          target-folder: binance4j-strategy
+
+  # Javadoc
+
+  deploy-javadocs:
+      name: Deploy javadoc
+      needs: [test-core,test-market,test-nft,test-spot,test-strategy,test-vision,test-wallet,test-websocket]
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: ${{ env.FETCH_DEPTH }}
+        - name: Java Setup
+          uses: actions/setup-java@v2
+          with:
+            java-version: ${{ env.JAVA_VERSION }}
+            distribution: ${{ env.JAVA_DISTRIBUTION }}
+
+        # ARTIFACTS INSTALLATIONS
+        
+        - name: Install binance4j-core
+          run: ${{ env.CORE_INSTALLATION }}
+
+        - name: Install binance4j-market
+          run: ${{ env.MARKET_INSTALLATION }}
+
+        - name: Install binance4j-nft
+          run: ${{ env.NFT_INSTALLATION }}
+
+        - name: Install binance4j-spot
+          run: ${{ env.SPOT_INSTALLATION }}
+
+        - name: Install binance4j-vision
+          run: ${{ env.VISION_INSTALLATION }}
+
+        - name: Install binance4j-wallet
+          run: ${{ env.WALLET_INSTALLATION }}
+
+        - name: Install binance4j-websocket
+          run: ${{ env.WEBSOCKET_INSTALLATION }}
+
+        - name: Install binance4j-strategy
+          run: ${{ env.STRATEGY_INSTALLATION }}
+
+        # ARTIFACTS DEPLOYMENTS
+
+        - name: Deploy binance4j-core
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: ${{ env.TEMP_GH_PAGES }}
+            clean: true
+            folder: binance4j-core/target/apidocs
+            target-folder: binance4j-core
+            
+        - name: Deploy binance4j-market
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: ${{ env.TEMP_GH_PAGES }}
+            clean: true
+            folder: binance4j-market/target/apidocs
+            target-folder: binance4j-market
+            
+        - name: Deploy binance4j-nft javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: ${{ env.TEMP_GH_PAGES }}
+            clean: true
+            folder: binance4j-nft/target/apidocs
+            target-folder: binance4j-nft
+
+        - name: Deploy binance4j-spot javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: ${{ env.TEMP_GH_PAGES }}
+            clean: true
+            folder: binance4j-spot/target/apidocs
+            target-folder: binance4j-spot
+
+        - name: Deploy binance4j-vision javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: ${{ env.TEMP_GH_PAGES }}
+            clean: true
+            folder: binance4j-vision/target/apidocs
+            target-folder: binance4j-vision
+
+        - name: Deploy binance4j-wallet javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: ${{ env.TEMP_GH_PAGES }}
+            clean: true
+            folder: binance4j-wallet/target/apidocs
+            target-folder: binance4j-wallet
+
+        - name: Deploy binance4j-websocket javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: ${{ env.TEMP_GH_PAGES }}
+            clean: true
+            folder: binance4j-websocket/target/apidocs
+            target-folder: binance4j-websocket
+
+        - name: Deploy binance4j-strategy javadoc
+          uses: JamesIves/github-pages-deploy-action@4.1.8
+          with:
+            branch: ${{ env.TEMP_GH_PAGES }}
+            clean: true
+            folder: binance4j-strategy/target/apidocs
+            target-folder: binance4j-strategy
 
   ##### DOCUMENTATION #####
 
@@ -443,7 +495,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ env.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./binance4j-documentation/build
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
@@ -466,7 +518,7 @@ jobs:
         with:
           type: now
           from_branch: ${{ env.TEMP_GH_PAGES }}
-          target_branch: gh-pages
+          target_branch: ${{ env.TEMP_GH_PAGES }}
           github_token: ${{ env.GITHUB_TOKEN }}       
       - name: Delete temp gh-pages branch
         uses: dawidd6/action-delete-branch@v3
