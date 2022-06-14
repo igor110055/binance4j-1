@@ -25,8 +25,6 @@ env:
   VISION_INSTALLATION: cd binance4j-vision && mvn install -DskipTests=true 
   WALLET_INSTALLATION: cd binance4j-wallet && mvn install -DskipTests=true 
   WEBSOCKET_INSTALLATION: cd binance4j-websocket && mvn install -DskipTests=true 
-  TEMP_GH_PAGES: gh-pages-temp
-  
 jobs:
   
   ##### TESTS #####
@@ -414,7 +412,7 @@ jobs:
         - name: Deploy binance4j-core
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
-            branch: ${{ env.TEMP_GH_PAGES }}
+            branch: gh-pages
             clean: true
             folder: binance4j-core/target/apidocs
             target-folder: binance4j-core
@@ -422,7 +420,7 @@ jobs:
         - name: Deploy binance4j-market
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
-            branch: ${{ env.TEMP_GH_PAGES }}
+            branch: gh-pages
             clean: true
             folder: binance4j-market/target/apidocs
             target-folder: binance4j-market
@@ -430,7 +428,7 @@ jobs:
         - name: Deploy binance4j-nft javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
-            branch: ${{ env.TEMP_GH_PAGES }}
+            branch: gh-pages
             clean: true
             folder: binance4j-nft/target/apidocs
             target-folder: binance4j-nft
@@ -438,7 +436,7 @@ jobs:
         - name: Deploy binance4j-spot javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
-            branch: ${{ env.TEMP_GH_PAGES }}
+            branch: gh-pages
             clean: true
             folder: binance4j-spot/target/apidocs
             target-folder: binance4j-spot
@@ -446,7 +444,7 @@ jobs:
         - name: Deploy binance4j-vision javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
-            branch: ${{ env.TEMP_GH_PAGES }}
+            branch: gh-pages
             clean: true
             folder: binance4j-vision/target/apidocs
             target-folder: binance4j-vision
@@ -454,7 +452,7 @@ jobs:
         - name: Deploy binance4j-wallet javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
-            branch: ${{ env.TEMP_GH_PAGES }}
+            branch: gh-pages
             clean: true
             folder: binance4j-wallet/target/apidocs
             target-folder: binance4j-wallet
@@ -462,7 +460,7 @@ jobs:
         - name: Deploy binance4j-websocket javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
-            branch: ${{ env.TEMP_GH_PAGES }}
+            branch: gh-pages
             clean: true
             folder: binance4j-websocket/target/apidocs
             target-folder: binance4j-websocket
@@ -470,7 +468,7 @@ jobs:
         - name: Deploy binance4j-strategy javadoc
           uses: JamesIves/github-pages-deploy-action@4.1.8
           with:
-            branch: ${{ env.TEMP_GH_PAGES }}
+            branch: gh-pages
             clean: true
             folder: binance4j-strategy/target/apidocs
             target-folder: binance4j-strategy
@@ -499,29 +497,3 @@ jobs:
           publish_dir: ./binance4j-documentation/build
           user_name: github-actions[bot]
           user_email: 41898282+github-actions[bot]@users.noreply.github.com
-
-  ##### CLONE AND DELETE TEMP GH-PAGES BRANCH #####
-
-  copy-to-gh-pages:
-    name: Copy temp gh-pages to gh-pages
-    needs: [deploy-core,deploy-market,deploy-nft,deploy-spot,deploy-strategy,deploy-vision,deploy-wallet,deploy-websocket,deploy-doc]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Delete gh-pages branch
-        uses: dawidd6/action-delete-branch@v3
-        with:
-          github_token: ${{ env.GITHUB_TOKEN }}
-          branches: gh-pages
-      - name: Merge temp gh-pages -> gh-pages
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          from_branch: ${{ env.TEMP_GH_PAGES }}
-          target_branch: ${{ env.TEMP_GH_PAGES }}
-          github_token: ${{ env.GITHUB_TOKEN }}       
-      - name: Delete temp gh-pages branch
-        uses: dawidd6/action-delete-branch@v3
-        with:
-          github_token: ${{ env.GITHUB_TOKEN }}
-          branches: ${{ env.TEMP_GH_PAGES }}
